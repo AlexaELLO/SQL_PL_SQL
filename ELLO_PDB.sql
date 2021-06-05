@@ -1,0 +1,1 @@
+create user alice IDENTIFIED BY olo;

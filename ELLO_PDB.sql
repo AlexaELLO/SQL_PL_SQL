@@ -1,1 +1,1 @@
-create user alice;
+show con_name;

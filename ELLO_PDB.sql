@@ -1,1 +1,22 @@
-show con_name;
+CREATE TABLESPACE tbs_01
+    DATAFILE 'tbs_01.dat'
+    SIZE 50M
+    ONLINE;
+    
+CREATE TEMPORARY TABLESPACE tbs_tem_01
+    TEMPFILE 'tbs_tem_01.dbf'
+    SIZE 10M
+    AUTOEXTEND ON;
+    
+CREATE USER BED_LINEN
+    IDENTIFIED BY lolo4
+    DEFAULT TABLESPACE tbs_01
+    TEMPORARY TABLESPACE tbs_tem_01
+    QUOTA 20M ON tbs_01;
+    
+CREATE TABLE CUSTOMER.ALICE (
+    first_name VARCHAR2(40) NOT NULL,
+    last_name VARCHAR(40) NOT NULL,
+    phone NUMBER()
+    
+    

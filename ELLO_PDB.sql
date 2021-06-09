@@ -1,2 +1,2 @@
-drop user alice cascade;
+create user alice;
         

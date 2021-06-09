@@ -1,1 +1,1 @@
-show con_name;
+show all tables;

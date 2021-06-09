@@ -1,1 +1,5 @@
-show all tables;
+CREATE TEMPORARY TABLESPACE tbs_temp_01 
+   TEMPFILE 'tbs_temp_01.dbf'
+   SIZE 10M 
+   REUSE
+   AUTOEXTEND ON NEXT 10M MAXSIZE 100M;

@@ -14,9 +14,13 @@ CREATE USER BED_LINEN
     TEMPORARY TABLESPACE tbs_tem_01
     QUOTA 20M ON tbs_01;
     
-CREATE TABLE CUSTOMER.ALICE (
-    first_name VARCHAR2(40) NOT NULL,
+CREATE TABLE BED_LINEN.CUSTOMER (
+    first_name VARCHAR2(40) NOT NULL PRIMARY KEY,
     last_name VARCHAR(40) NOT NULL,
-    phone NUMBER()
+    phone NUMBER(11),
+    adress VARCHAR2(40) NOT NULL
+    ); 
+    
+
     
     

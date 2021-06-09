@@ -1,1 +1,2 @@
-show con_name;
+drop user alice cascade;
+        

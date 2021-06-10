@@ -7,19 +7,52 @@ CREATE TEMPORARY TABLESPACE tbs_tem_01
     TEMPFILE 'tbs_tem_01.dbf'
     SIZE 10M
     AUTOEXTEND ON;
-    
-CREATE USER BED_LINEN
+
+CREATE USER SCIENTIFIC_CENTER
     IDENTIFIED BY lolo4
     DEFAULT TABLESPACE tbs_01
     TEMPORARY TABLESPACE tbs_tem_01
-    QUOTA 20M ON tbs_01;
+    QUOTA 40M ON tbs_01;
     
-CREATE TABLE BED_LINEN.CUSTOMER (
-    first_name VARCHAR2(40) NOT NULL PRIMARY KEY,
-    last_name VARCHAR(40) NOT NULL,
-    phone NUMBER(11),
-    adress VARCHAR2(40) NOT NULL
+CREATE TABLE SCIENTIFIC_CENTER.LABORATORY (   
+    dept VARCHAR2(40) NOT NULL PRIMARY KEY,
+    post VARCHAR(60) NOT NULL,
+    lf_name VARCHAR(40) NOT NULL,
+    salary NUMBER CHECK(salary < 100000)
+    );
+    
+DROP TABLE SCIENTIFIC_CENTER.LABORATORY PURGE;
+
+CREATE TABLE SCIENTIFIC_CENTER.LABORATORY (
+    dept_id VARCHAR2(40) NOT NULL,
+    post VARCHAR(60) NOT NULL,
+    lf_name VARCHAR(40) NOT NULL,
+    salary NUMBER CHECK(salary < 100000),
+    CONSTRAINT dept_pk PRIMARY KEY (dept_id)
+    );
+    
+CREATE TABLE SCIENTIFIC_CENTER.DEPARTMENT (
+    depar_id VARCHAR2(40) NOT NULL,
+    number_of_staff NUMBER CHECK(number_of_staff < 50) NOT NULL,
+    CONSTRAINT fk_depar
+        FOREIGN KEY (depar_id)
+        REFERENCES scientific_center.laboratory(dept_id)
+    );
+    
+CREATE TABLE SCIENTIFIC_CENTER.POST (
+    position_id VARCHAR2()
     ); 
+
+
+
+
+
+
+
+
+
+
+
     
 
     

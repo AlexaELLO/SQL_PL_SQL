@@ -63,9 +63,17 @@ INSERT ALL
     VALUES ('Эксперементальная физика', 'физик-теоретик', 'Тонри Р.', '70000')
 SELECT * FROM dual;
 
+CREATE SEQUENCE SCIENTIFIC_CENTER.LABORATORY_SEQ
+    INCREMENT BY 1
+    START WITH 5
+    MAXVALUE 5000
+    MINVALUE 1
+    CACHE 20;
+    
+INSERT INTO SCIENTIFIC_CENTER.LABORATORY (dept, number_staff, phone_dept)
+VALUES (scientific_center.laboratory_seq.NEXTVAL, '5', '89897');
 
-
-
+DROP SEQUENCE SCIENTIFIC_CENTER.LABORATORY_SEQ;
 
 
     

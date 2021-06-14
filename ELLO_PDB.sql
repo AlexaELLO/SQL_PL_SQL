@@ -14,69 +14,90 @@ CREATE USER SCIENTIFIC_CENTER
     TEMPORARY TABLESPACE tbs_tem_01
     QUOTA 40M ON tbs_01;  
 
-CREATE TABLE SCIENTIFIC_CENTER.LABORATORY (
-    dept VARCHAR2(60) NOT NULL,
-    number_staff NUMBER(10),
-    phone_dept NUMBER(10) NOT NULL,
-    CONSTRAINT dept_pk PRIMARY KEY (dept)
-    );
+CREATE TABLE SCIENTIFIC_CENTER.DEPARTMENT (
+    dept_id NUMBER NOT NULL,
+    department VARCHAR2(60) NOT NULL,
+    number_staff NUMBER CHECK(number_staff < 20),
+    phone_of_department NUMBER(6) NOT NULL,
+    CONSTRAINT dept_pk PRIMARY KEY (dept_id)
+    ); 
     
-CREATE TABLE SCIENTIFIC_CENTER.STAFF (
-    depar VARCHAR2(60) NOT NULL,
-    post VARCHAR2(40) NOT NULL,
-    lf_name VARCHAR2(40) NOT NULL,
-    salary NUMBER CHECK (salary < 100000),
-    CONSTRAINT fk_depar
-        FOREIGN KEY (depar)
-        REFERENCES scientific_center.laboratory(dept)
+INSERT ALL
+    INTO SCIENTIFIC_CENTER.DEPARTMENT (dept_id, department, number_staff, phone_of_department)
+    VALUES ('10', 'Исследование и разработка', '4', '22335')
+    INTO SCIENTIFIC_CENTER.DEPARTMENT (dept_id, department, number_staff, phone_of_department)
+    VALUES ('20', 'Теоретическая физика', '5', '21334')
+    INTO SCIENTIFIC_CENTER.DEPARTMENT (dept_id, department, number_staff, phone_of_department)
+    VALUES ('30', 'Эксперементальная физика', '3', '23632')
+SELECT * FROM dual;
+
+CREATE TABLE SCIENTIFIC_CENTER.PROFESSIONS (
+    profession_id NUMBER NOT NULL,
+    profession VARCHAR2(40) NOT NULL,
+    number_staff NUMBER CHECK(number_staff < 20) NOT NULL,
+    department VARCHAR2(60) NOT NULL,
+    depar_id NUMBER NOT NULL,
+    CONSTRAINT proff_pk PRIMARY KEY (profession_id),
+    CONSTRAINT depar_fk
+        FOREIGN KEY (depar_id)
+        REFERENCES scientific_center.department(dept_id)
     );
     
 INSERT ALL
-    INTO SCIENTIFIC_CENTER.LABORATORY (dept, number_staff, phone_dept)
-    VALUES ('Исследование и разработка', '4', '22335')
-    INTO SCIENTIFIC_CENTER.LABORATORY (dept, number_staff, phone_dept)
-    VALUES ('Теоретическая физика', '3', '21334')
-    INTO SCIENTIFIC_CENTER.LABORATORY (dept, number_staff, phone_dept)
-    VALUES ('Эксперементальная физика', '3', '23333')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('11', 'главный инженер', '2', 'Исследование и разработка', '10')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('12', 'инженер', '2', 'Исследование и разработка', '10')
 SELECT * FROM dual;
 
 INSERT ALL
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Исследование и разработка', 'главный инженер', 'Макейн Д.', '85000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Исследование и разработка', 'главный инженер', 'Доремайя К.', '85000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Исследование и разработка', 'инженер', 'Элорн К.', '82000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Исследование и разработка', 'инженер', 'Дорент Ж.', '82000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Теоретическая физика', 'физик-теоретик', 'Коллин Р.', '70000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Теоретическая физика', 'физик-теоретик', 'Паррель К.', '70000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Теоретическая физика', 'физик', 'Колуэн Л.', '64000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Эксперементальная физика', 'физик', 'Келог А.', '64000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Эксперементальная физика', 'физик', 'Коферман Л.', '64000')
-    INTO SCIENTIFIC_CENTER.STAFF (depar, post, lf_name, salary)
-    VALUES ('Эксперементальная физика', 'физик-теоретик', 'Тонри Р.', '70000')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('21', 'физик-теоретик', '2', 'Теоретическая физика', '20')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('22', 'физик', '3', 'Теоретическая физика', '20')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('31', 'материаловед', '1', 'Эксперементальная физика', '30')
+    INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
+    VALUES ('32', 'физик-инженер', '2', 'Эксперементальная физика', '30')
 SELECT * FROM dual;
 
-CREATE SEQUENCE SCIENTIFIC_CENTER.LABORATORY_SEQ
-    INCREMENT BY 1
-    START WITH 5
-    MAXVALUE 5000
-    MINVALUE 1
-    CACHE 20;
-    
-INSERT INTO SCIENTIFIC_CENTER.LABORATORY (dept, number_staff, phone_dept)
-VALUES (scientific_center.laboratory_seq.NEXTVAL, '5', '89897');
+CREATE TABLE SCIENTIFIC_CENTER.EMPLOYEES (
+    employee_id NUMBER NOT NULL,
+    employee VARCHAR2(40) NOT NULL,
+    salary NUMBER CHECK(salary < 200000) NOT NULL,
+    profession VARCHAR2(40) NOT NULL,
+    proff_id NUMBER NOT NULL,
+    CONSTRAINT emp_pk PRIMARY KEY (employee_id),
+    CONSTRAINT proff_fk
+        FOREIGN KEY (proff_id)
+        REFERENCES scientific_center.professions(profession_id)
+    );
 
-DROP SEQUENCE SCIENTIFIC_CENTER.LABORATORY_SEQ;
+INSERT ALL
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('110', 'Макейн Д.', '85000', 'главный инженер', '11')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('120', 'Лорри К.', '85000', 'главный инженер', '11')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('130', 'Элорн К.', '82000', 'инженер', '12')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('140', 'Дорент Ж.', '82000', 'инженер', '12')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('210', 'Коллин Р.', '85000', 'физик-теоретик', '21')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('220', 'Паррель К.', '85000', 'физик-теоретик', '21')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('230', 'Колуэн Л.', '83000', 'физик', '22')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('240', 'Келог А.', '83000', 'физик', '22')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('250', 'Коферман Л.', '83000', 'физик', '22')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('310', 'Петриков С.', '82000', 'материаловед', '31')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('320', 'Тонри Р.', '85000', 'физик-инженер', '32')
+    INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+    VALUES ('330', 'Браун С.', '85000', 'физик-инженер', '32')
+SELECT * FROM dual;   
 
-
-    
-
-    
-    
+   

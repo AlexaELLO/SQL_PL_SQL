@@ -139,4 +139,5 @@ SELECT SCIENTIFIC_CENTER.DEPARTMENT_SEQ.CURRVAL FROM dual;
 INSERT INTO SCIENTIFIC_CENTER.PROFESSIONS (profession_id, profession, number_staff, department, depar_id)
 VALUES (scientific_center.proff_seq.NEXTVAL, 'химик', '1', 'Органическая химия', scientific_center.department_seq.CURRVAL);
 
-
+INSERT INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
+VALUES ('410', 'Аббадир М.', '80000', 'химик', scientific_center.proff_seq.CURRVAL);

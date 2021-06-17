@@ -141,3 +141,28 @@ VALUES (scientific_center.proff_seq.NEXTVAL, 'химик', '1', 'Органическая химия',
 
 INSERT INTO SCIENTIFIC_CENTER.EMPLOYEES (employee_id, employee, salary, profession, proff_id)
 VALUES ('410', 'Аббадир М.', '80000', 'химик', scientific_center.proff_seq.CURRVAL);
+
+CREATE USER MANAGERS
+    IDENTIFIED BY lolo5
+    DEFAULT TABLESPACE tbs_01
+    TEMPORARY TABLESPACE tbs_tem_01
+    QUOTA 20M ON tbs_01;
+    
+CREATE TABLE MANAGERS.MANAGER_DEPARTMENTS (
+    manager_id NUMBER NOT NULL,
+    name_manader VARCHAR2(40) NOT NULL,
+    phone_manager NUMBER(6) NOT NULL,
+    department VARCHAR2(60)not null,
+    dept_id NUMBER NOT NULL
+    );
+
+INSERT ALL
+    INTO MANAGERS.MANAGER_DEPARTMENTS (manager_id, name_manader, phone_manager, department, dept_id)
+    VALUES ('1', 'Колин Ф.', '14721', 'Исследование и разработка', '10')
+    INTO MANAGERS.MANAGER_DEPARTMENTS (manager_id, name_manader, phone_manager, department, dept_id)
+    VALUES ('2', 'Андерсон М.', '25812', 'Теоретическая физика', '20')
+    INTO MANAGERS.MANAGER_DEPARTMENTS (manager_id, name_manader, phone_manager, department, dept_id)
+    VALUES ('3', 'Найтли Э.', '35796', 'Эксперементальная физика', '30')
+    INTO MANAGERS.MANAGER_DEPARTMENTS (manager_id, name_manader, phone_manager, department, dept_id)
+    VALUES ('4', 'Колли Л.', '45789', 'Органическая химия', '40')
+SELECT * FROM dual;

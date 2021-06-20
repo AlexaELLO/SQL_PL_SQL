@@ -166,3 +166,5 @@ INSERT ALL
     INTO MANAGERS.MANAGER_DEPARTMENTS (manager_id, name_manader, phone_manager, department, dept_id)
     VALUES ('4', 'Колли Л.', '45789', 'Органическая химия', '40')
 SELECT * FROM dual;
+
+CREATE PUBLIC SYNONYM tab_department FOR scientific_center.department;

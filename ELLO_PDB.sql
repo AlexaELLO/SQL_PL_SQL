@@ -168,3 +168,12 @@ INSERT ALL
 SELECT * FROM dual;
 
 CREATE PUBLIC SYNONYM tab_department FOR scientific_center.department;
+
+SELECT department, phone_of_department FROM tab_department;
+
+CREATE SYNONYM tab_employees FOR scientific_center.employees;
+
+SELECT employee_id, employee, profession FROM tab_employees;
+
+GRANT SELECT ON tab_employees TO managers;
+

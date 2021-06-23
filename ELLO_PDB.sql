@@ -177,3 +177,59 @@ SELECT employee_id, employee, profession FROM tab_employees;
 
 GRANT SELECT ON tab_employees TO managers;
 
+
+BEGIN
+    DBMS_OUTPUT.enable;
+    DBMS_OUTPUT. put_line('Hi!');
+END;
+/
+
+DECLARE
+
+A NUMBER;
+B NUMBER;
+
+BEGIN
+
+    A := 3;
+    B := 5;
+    
+    DBMS_OUTPUT.enable;
+    DBMS_OUTPUT.put_line(A+B);
+    
+END;
+/
+
+DECLARE
+A INTEGER := 8;
+B INTEGER := 7;
+
+BEGIN
+    DBMS_OUTPUT.enable;
+    DBMS_OUTPUT.put_line(A+B);
+END;
+/
+
+COMMIT;
+
+DECLARE
+
+i NUMBER := 0;
+
+BEGIN
+    LOOP
+    i := i + 1;
+    IF (i >= 100) THEN
+        i := 0;
+        EXIT;
+    END IF;
+    END LOOP;
+    
+    LOOP
+    i := i + 1;
+    EXIT WHEN (i >= 100);
+    END LOOP;
+END;
+/
+
+COMMIT;

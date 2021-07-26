@@ -861,3 +861,16 @@ END;
 /
 
 SELECT * FROM ZIREAEL.LIBRARY;
+
+CREATE VIEW author_lb AS
+    SELECT author, genre, number_book
+    FROM ZIREAEL.LIBRARY;
+/
+
+SELECT * FROM author_lb;
+/
+
+SELECT author, genre  
+FROM author_lb
+WHERE genre = 'Детектив';
+/

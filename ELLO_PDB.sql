@@ -435,14 +435,11 @@ SELECT * FROM v$sql_plan_statistics_all;
 
 SELECT /*+ALL_ROWS*/ *
 FROM EMP e;
+/
 
 SELECT /*+ INDEX (EMP empno) */ *
 FROM EMP e;
-
-CREATE TABLE ZIREAEL.DEPARTMENT (
-    DEPTNO NUMBER NOT NULL,
-    NAME_DEP VARCHAR2(30)
-);
+/
 
 SELECT /*+ALL_ROWS*/ *
 FROM EMP e;
@@ -873,4 +870,14 @@ SELECT * FROM author_lb;
 SELECT author, genre  
 FROM author_lb
 WHERE genre = 'Детектив';
+/
+
+SELECT genre, name_book
+FROM ZIREAEL.LIBRARY
+WHERE number_store = 26;
+/
+
+SELECT author, number_book  
+FROM ZIREAEL.LIBRARY
+WHERE author = 'Джейн Остин';
 /

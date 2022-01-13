@@ -378,5 +378,3 @@ INSERT INTO message_log VALUES ('W', SYSDATE - 10, 'Warning 2');
 INSERT INTO message_log VALUES ('E', SYSDATE + 10, 'Error 1');
 INSERT INTO message_log VALUES ('E', SYSDATE - 10, 'Error 2');*/
 --не вставл€ютс€. ORA-14300
-
-
